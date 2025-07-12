@@ -1,0 +1,1467 @@
+{
+  "info": {
+    "name": "Sunrise Admin & Property Management API",
+    "description": "Complete API collection for Sunrise Admin Authentication & Property Management System",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.success && response.data.access_token) {",
+                  "        pm.collectionVariables.set('access_token', response.data.access_token);",
+                  "        console.log('Access token saved:', response.data.access_token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@sunrise.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@sunrise.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/forgot-password",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "forgot-password"]
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@sunrise.com\",\n  \"token\": \"reset_token_here\",\n  \"password\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/reset-password",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "reset-password"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Metrics",
+          "item": [
+            {
+              "name": "Total Properties",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/total-properties",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "total-properties"]
+                }
+              }
+            },
+            {
+              "name": "Active Listings",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/active-listings",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "active-listings"]
+                }
+              }
+            },
+            {
+              "name": "Active Leases",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/active-leases",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "active-leases"]
+                }
+              }
+            },
+            {
+              "name": "Tenant Count",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/tenant-count",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "tenant-count"]
+                }
+              }
+            },
+            {
+              "name": "Landlord Count",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/landlord-count",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "landlord-count"]
+                }
+              }
+            },
+            {
+              "name": "Revenue",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/revenue",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "revenue"]
+                }
+              }
+            },
+            {
+              "name": "Admin Count",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/admin-count",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "admin-count"]
+                }
+              }
+            },
+            {
+              "name": "New Inquiries Today",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/metrics/new-inquiries-today",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "metrics", "new-inquiries-today"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Charts",
+          "item": [
+            {
+              "name": "Property Status Chart",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/charts/property-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "charts", "property-status"]
+                }
+              }
+            },
+            {
+              "name": "Revenue Trend Chart",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/charts/revenue-trend",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "charts", "revenue-trend"]
+                }
+              }
+            },
+            {
+              "name": "User Growth Chart",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/charts/user-growth",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "charts", "user-growth"]
+                }
+              }
+            },
+            {
+              "name": "Lease Status Chart",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/charts/lease-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "charts", "lease-status"]
+                }
+              }
+            },
+            {
+              "name": "Inquiry Source Chart",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/charts/inquiry-source",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "charts", "inquiry-source"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Recent Data",
+          "item": [
+            {
+              "name": "Recent Properties",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/recent/properties?limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "recent", "properties"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Recent Users",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/recent/users?limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "recent", "users"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Recent Activities",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/admin/dashboard/recent/activities?limit=20",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "admin", "dashboard", "recent", "activities"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users?page=1&limit=10&search=&status=&user_type=&is_blocked=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "user_type",
+                  "value": ""
+                },
+                {
+                  "key": "is_blocked",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"phone\": \"9876543210\",\n  \"password\": \"password123\",\n  \"status\": \"active\",\n  \"user_type\": \"tenant\",\n  \"address\": \"123 Test Street, Test City\",\n  \"dob\": \"1990-01-01\",\n  \"gender\": \"male\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated User Name\",\n  \"phone\": \"9876543211\",\n  \"address\": \"Updated Address\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"inactive\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Block/Unblock User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_blocked\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1/block",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1", "block"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Bulk Delete Users",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/bulk-delete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "bulk-delete"]
+            }
+          }
+        },
+        {
+          "name": "Get User Login History",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1/logins?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1", "logins"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User Statistics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Export Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/export?status=&user_type=&is_blocked=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "export"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "user_type",
+                  "value": ""
+                },
+                {
+                  "key": "is_blocked",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Management",
+      "item": [
+        {
+          "name": "Get All Admins",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins?page=1&limit=10&search=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "admins"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Admin by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "admins", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Admin\",\n  \"email\": \"testadmin@sunrise.com\",\n  \"password\": \"admin123\",\n  \"status\": \"active\",\n  \"isSuperAdmin\": false,\n  \"roleIds\": [1],\n  \"permissionIds\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "admins"]
+            }
+          }
+        },
+        {
+          "name": "Update Admin",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Admin Name\",\n  \"status\": \"active\",\n  \"roleIds\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins/2",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "admins", "2"]
+            }
+          }
+        },
+        {
+          "name": "Delete Admin",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins/2",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "admins", "2"]
+            }
+          }
+        },
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "roles"]
+            }
+          }
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Role\",\n  \"slug\": \"test-role\",\n  \"description\": \"Test role description\",\n  \"permissionIds\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "roles"]
+            }
+          }
+        },
+        {
+          "name": "Get All Permissions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "permissions"]
+            }
+          }
+        },
+        {
+          "name": "Create Permission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Permission\",\n  \"module\": \"test\",\n  \"action\": \"view\",\n  \"description\": \"Test permission description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "permissions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Enhanced Properties (Sequelize)",
+      "item": [
+        {
+          "name": "Get All Properties",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties?page=1&limit=10&search=&property_type=&listing_type=&status=&city=&min_price=&max_price=&bedroom=&is_featured=&is_verified=&owner_id=&sort_by=created_at&sort_order=desc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "property_type",
+                  "value": ""
+                },
+                {
+                  "key": "listing_type",
+                  "value": ""
+                },
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "city",
+                  "value": ""
+                },
+                {
+                  "key": "min_price",
+                  "value": ""
+                },
+                {
+                  "key": "max_price",
+                  "value": ""
+                },
+                {
+                  "key": "bedroom",
+                  "value": ""
+                },
+                {
+                  "key": "is_featured",
+                  "value": ""
+                },
+                {
+                  "key": "is_verified",
+                  "value": ""
+                },
+                {
+                  "key": "owner_id",
+                  "value": ""
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Properties",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/search?q=apartment&property_type=apartment&listing_type=rent&city=Mumbai&locality=&min_price=&max_price=&bedroom=&bathroom=&furnish_type=&amenities=&page=1&limit=10&sort_by=created_at&sort_order=desc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "apartment"
+                },
+                {
+                  "key": "property_type",
+                  "value": "apartment"
+                },
+                {
+                  "key": "listing_type",
+                  "value": "rent"
+                },
+                {
+                  "key": "city",
+                  "value": "Mumbai"
+                },
+                {
+                  "key": "locality",
+                  "value": ""
+                },
+                {
+                  "key": "min_price",
+                  "value": ""
+                },
+                {
+                  "key": "max_price",
+                  "value": ""
+                },
+                {
+                  "key": "bedroom",
+                  "value": ""
+                },
+                {
+                  "key": "bathroom",
+                  "value": ""
+                },
+                {
+                  "key": "furnish_type",
+                  "value": ""
+                },
+                {
+                  "key": "amenities",
+                  "value": ""
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Featured Properties",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/featured?limit=10&property_type=&city=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "featured"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "property_type",
+                  "value": ""
+                },
+                {
+                  "key": "city",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Property by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/1?include=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1"],
+              "query": [
+                {
+                  "key": "include",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Property (Form Data)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Test Property via Postman",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a test property created via Postman with form data",
+                  "type": "text"
+                },
+                {
+                  "key": "owner_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "category_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "property_type",
+                  "value": "apartment",
+                  "type": "text"
+                },
+                {
+                  "key": "listing_type",
+                  "value": "rent",
+                  "type": "text"
+                },
+                {
+                  "key": "monthly_rent",
+                  "value": "25000",
+                  "type": "text"
+                },
+                {
+                  "key": "security_deposit",
+                  "value": "50000",
+                  "type": "text"
+                },
+                {
+                  "key": "area",
+                  "value": "1000",
+                  "type": "text"
+                },
+                {
+                  "key": "area_unit",
+                  "value": "sqft",
+                  "type": "text"
+                },
+                {
+                  "key": "bedroom",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "bathroom",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "balcony",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "bhk",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "floor_no",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "total_floors",
+                  "value": "10",
+                  "type": "text"
+                },
+                {
+                  "key": "furnish_type",
+                  "value": "semi-furnished",
+                  "type": "text"
+                },
+                {
+                  "key": "available_from",
+                  "value": "2024-02-01",
+                  "type": "text"
+                },
+                {
+                  "key": "available_for",
+                  "value": "Family",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "draft",
+                  "type": "text"
+                },
+                {
+                  "key": "is_featured",
+                  "value": "false",
+                  "type": "text"
+                },
+                {
+                  "key": "city",
+                  "value": "Mumbai",
+                  "type": "text"
+                },
+                {
+                  "key": "state",
+                  "value": "Maharashtra",
+                  "type": "text"
+                },
+                {
+                  "key": "locality",
+                  "value": "Andheri West",
+                  "type": "text"
+                },
+                {
+                  "key": "landmark",
+                  "value": "Near Metro Station",
+                  "type": "text"
+                },
+                {
+                  "key": "zipcode",
+                  "value": "400058",
+                  "type": "text"
+                },
+                {
+                  "key": "full_address",
+                  "value": "Test Address, Andheri West, Mumbai - 400058",
+                  "type": "text"
+                },
+                {
+                  "key": "latitude",
+                  "value": "19.1136",
+                  "type": "text"
+                },
+                {
+                  "key": "longitude",
+                  "value": "72.8697",
+                  "type": "text"
+                },
+                {
+                  "key": "features",
+                  "value": "[\"Parking\", \"Elevator\", \"Security\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "amenities",
+                  "value": "[1, 2, 7, 8]",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "documents",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties"]
+            }
+          }
+        },
+        {
+          "name": "Update Property (Form Data)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Updated Property Title",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated property description",
+                  "type": "text"
+                },
+                {
+                  "key": "monthly_rent",
+                  "value": "30000",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "published",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Property Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"published\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Delete Property",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/properties/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1"]
+            }
+          }
+        },
+        {
+          "name": "Verify Property",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "verify"]
+            }
+          }
+        },
+        {
+          "name": "Reject Property",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Property does not meet our standards\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Get Property Statistics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Property Images",
+      "item": [
+        {
+          "name": "Get Property Images",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/images",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "images"]
+            }
+          }
+        },
+        {
+          "name": "Upload Property Images",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/images",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "images"]
+            }
+          }
+        },
+        {
+          "name": "Delete Property Image",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/properties/images/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "images", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Property Documents",
+      "item": [
+        {
+          "name": "Get Property Documents",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/documents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "documents"]
+            }
+          }
+        },
+        {
+          "name": "Upload Property Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "doc_type",
+                  "value": "ownership_deed",
+                  "type": "text"
+                },
+                {
+                  "key": "document_name",
+                  "value": "Property Ownership Deed",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/properties/1/documents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "1", "documents"]
+            }
+          }
+        },
+        {
+          "name": "Delete Property Document",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/properties/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "properties", "documents", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner Properties",
+      "item": [
+        {
+          "name": "Get Owner Properties",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/owners/1/properties?page=1&limit=10&status=&property_type=&sort_by=created_at&sort_order=desc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "owners", "1", "properties"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "property_type",
+                  "value": ""
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Legacy Properties (Raw SQL)",
+      "item": [
+        {
+          "name": "Get All Properties (Legacy)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/properties?page=1&limit=10&search=&property_type=&listing_type=&status=&city=&min_price=&max_price=&bedrooms=&is_featured=&is_verified=&owner_id=&sort_by=created_at&sort_order=desc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "properties"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "property_type",
+                  "value": ""
+                },
+                {
+                  "key": "listing_type",
+                  "value": ""
+                },
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "city",
+                  "value": ""
+                },
+                {
+                  "key": "min_price",
+                  "value": ""
+                },
+                {
+                  "key": "max_price",
+                  "value": ""
+                },
+                {
+                  "key": "bedrooms",
+                  "value": ""
+                },
+                {
+                  "key": "is_featured",
+                  "value": ""
+                },
+                {
+                  "key": "is_verified",
+                  "value": ""
+                },
+                {
+                  "key": "owner_id",
+                  "value": ""
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Property Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/properties/categories/list",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "properties", "categories", "list"]
+            }
+          }
+        },
+        {
+          "name": "Get Amenities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/properties/amenities/list",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "properties", "amenities", "list"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
