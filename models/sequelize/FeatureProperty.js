@@ -1,4 +1,3 @@
-// models/FeatureProperty.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/sequelize.js';
 
@@ -15,7 +14,7 @@ const FeatureProperty = sequelize.define('FeatureProperty', {
   }
 }, {
   tableName: 'feature_property',
-  timestamps: false,
+  timestamps: false
 });
 
 export default FeatureProperty;

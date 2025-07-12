@@ -329,9 +329,7 @@ static async getAllProperties(filters = {}) {
       );
     }
 
-    const property = await Property.findByPk(id, {
-      include: includeOptions
-    });
+    const property = await Property.findByPk(id);
 
     if (!property) {
       throw new Error('Property not found');
